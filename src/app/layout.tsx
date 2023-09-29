@@ -1,3 +1,4 @@
+import Header from '@/components/header';
 import Navbar from '@/components/navbar';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
@@ -27,16 +28,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html
-        className="min-h-[100dvh] pt-[env(safe-area-inset-top)] [-webkit-tap-highlight-color:transparent]"
+        className="min-h-[100dvh] pt-[calc(env(safe-area-inset-top)-10px)] [-webkit-tap-highlight-color:transparent]"
         lang="en"
         suppressHydrationWarning
       >
-        <body className={cn(inter.className, 'flex bg-background-muted text-foreground')}>
+        <body className={cn(inter.className, 'flex bg-background pt-14 text-foreground')}>
           <Providers>
-            {/* Safe area blur for mobile */}
-            <div className="fixed top-0 z-50 h-[env(safe-area-inset-top)] w-full backdrop-blur-md"></div>
+            <Header />
             <Navbar />
-            {children}
+            <main className="p-4 lg:ml-20">{children}</main>
           </Providers>
         </body>
       </html>
