@@ -1,4 +1,5 @@
 import { PlusIcon } from 'lucide-react';
+import { AddRecipeModal } from './add-recipe-modal';
 import { Button } from './ui/button';
 
 export default function Header() {
@@ -10,9 +11,11 @@ export default function Header() {
           Recipes
         </div>
         <div className="justify-self-end">
-          <Button size="icon-sm" variant="ghost">
-            <PlusIcon className="h-5 w-5" />
-          </Button>
+          <AddRecipeModal>
+            <Button size="icon-sm" variant="ghost">
+              <PlusIcon className="h-5 w-5" />
+            </Button>
+          </AddRecipeModal>
         </div>
       </div>
     </header>
