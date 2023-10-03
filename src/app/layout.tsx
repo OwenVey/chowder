@@ -1,5 +1,6 @@
-import Header from '@/components/header';
-import Navbar from '@/components/navbar';
+import { DesktopNav } from '@/components/desktop-nav';
+// import Header from '@/components/header';
+import MobileNav from '@/components/mobile-nav';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
 import { ClerkProvider } from '@clerk/nextjs';
@@ -28,15 +29,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html
-        className="min-h-[100dvh] pt-[calc(env(safe-area-inset-top)-10px)] [-webkit-tap-highlight-color:transparent]"
+        className="flex h-[100dvh] pt-[env(safe-area-inset-top)] antialiased [-webkit-tap-highlight-color:transparent]"
         lang="en"
         suppressHydrationWarning
       >
-        <body className={cn(inter.className, 'flex bg-background pt-14 text-foreground')}>
+        <body
+          className={cn(
+            inter.className,
+            'flex w-full flex-col overflow-hidden bg-background pt-14 text-foreground lg:flex-row',
+          )}
+        >
           <Providers>
-            <Header />
-            <Navbar />
-            <main className="p-4 lg:ml-20">{children}</main>
+            <DesktopNav />
+            {/* <Header /> */}
+            <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
+            <MobileNav />
           </Providers>
         </body>
       </html>
