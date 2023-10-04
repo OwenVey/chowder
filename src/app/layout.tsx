@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body
           className={cn(
             inter.className,
-            'flex w-full flex-col overflow-hidden bg-background pt-14 text-foreground lg:flex-row',
+            'flex w-full flex-col overflow-hidden bg-background text-foreground lg:flex-row',
           )}
         >
           <Providers>

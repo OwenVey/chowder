@@ -1,30 +1,15 @@
 'use client';
 
+import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-  ArrowLeftToLineIcon,
-  CalendarDaysIcon,
-  HomeIcon,
-  SearchIcon,
-  ShoppingCartIcon,
-  SoupIcon,
-  UtensilsCrossedIcon,
-} from 'lucide-react';
+import { ArrowLeftToLineIcon, SoupIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useToggle } from 'usehooks-ts';
 import { ThemeToggle } from './theme-toggle';
 import { Button } from './ui/button';
-
-const navigation = [
-  { name: 'Home', href: '/', icon: HomeIcon },
-  { name: 'Recipes', href: '/recipes', icon: UtensilsCrossedIcon },
-  { name: 'Search', href: '/search', icon: SearchIcon },
-  { name: 'Plan', href: '/plan', icon: CalendarDaysIcon },
-  { name: 'Groceries', href: '/groceries', icon: ShoppingCartIcon },
-];
 
 export function DesktopNav() {
   const pathname = usePathname();
@@ -54,34 +39,36 @@ export function DesktopNav() {
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
               <ul role="list" className="space-y-2">
-                {navigation.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
-                        item.href === pathname
-                          ? 'bg-primary text-white'
-                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                      )}
-                    >
-                      <item.icon
+                {navigation
+                  .filter(({ device }) => device !== 'mobile')
+                  .map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
                         className={cn(
-                          item.href === pathname ? 'text-white' : 'text-muted-foreground group-hover:text-foreground',
-                          'h-6 w-6 shrink-0',
+                          'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
+                          item.href === pathname
+                            ? 'bg-primary text-white'
+                            : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                         )}
-                        aria-hidden="true"
-                      />
-                      <AnimatePresence initial={false} mode="popLayout">
-                        {!isCollapsed && (
-                          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                            {item.name}
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </Link>
-                  </li>
-                ))}
+                      >
+                        <item.icon
+                          className={cn(
+                            item.href === pathname ? 'text-white' : 'text-muted-foreground group-hover:text-foreground',
+                            'h-6 w-6 shrink-0',
+                          )}
+                          aria-hidden="true"
+                        />
+                        <AnimatePresence initial={false} mode="popLayout">
+                          {!isCollapsed && (
+                            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                              {item.name}
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </li>
 
