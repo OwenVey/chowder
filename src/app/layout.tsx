@@ -1,5 +1,6 @@
 import { DesktopNav } from '@/components/desktop-nav';
 // import Header from '@/components/header';
+import { GlobalSearch } from '@/components/global-search';
 import MobileNav from '@/components/mobile-nav';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
         >
           <Providers>
+            <GlobalSearch />
             <DesktopNav />
             {/* <Header /> */}
             <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>

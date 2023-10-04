@@ -1,12 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import {
-  CalendarDaysIcon,
-  HomeIcon,
-  SearchIcon,
-  ShoppingCartIcon,
-  UserCircleIcon,
-  UtensilsCrossedIcon,
-} from 'lucide-react';
+import { CalendarDaysIcon, ShoppingCartIcon, UserCircleIcon, UtensilsCrossedIcon } from 'lucide-react';
 
 export type NavigationItem = {
   name: string;
@@ -15,9 +8,7 @@ export type NavigationItem = {
   device: 'mobile' | 'desktop' | 'both';
 };
 export const navigation: Array<NavigationItem> = [
-  { name: 'Home', href: '/', icon: HomeIcon, device: 'both' },
-  { name: 'Recipes', href: '/recipes', icon: UtensilsCrossedIcon, device: 'both' },
-  { name: 'Search', href: '/search', icon: SearchIcon, device: 'desktop' },
+  { name: 'Recipes', href: '/', icon: UtensilsCrossedIcon, device: 'both' },
   { name: 'Plan', href: '/plan', icon: CalendarDaysIcon, device: 'both' },
   { name: 'Groceries', href: '/groceries', icon: ShoppingCartIcon, device: 'both' },
   { name: 'Profile', href: '/profile', icon: UserCircleIcon, device: 'mobile' },

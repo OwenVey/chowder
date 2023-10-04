@@ -2,18 +2,21 @@
 
 import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
+import { useStore } from '@/store';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeftToLineIcon, SoupIcon } from 'lucide-react';
+import { ArrowLeftToLineIcon, SearchIcon, SoupIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useToggle } from 'usehooks-ts';
 import { ThemeToggle } from './theme-toggle';
 import { Button } from './ui/button';
+import { CommandShortcut } from './ui/command';
 
 export function DesktopNav() {
   const pathname = usePathname();
   const [isCollapsed, toggleIsCollapsed] = useToggle();
+  const setIsGlobalSearchOpen = useStore((state) => state.setIsGlobalSearchOpen);
 
   return (
     <motion.div
@@ -33,6 +36,21 @@ export function DesktopNav() {
           className="absolute -right-4 top-12 rounded-full opacity-0 transition-opacity group-hover/nav:opacity-100"
         >
           <ArrowLeftToLineIcon className={cn('h-4 w-4 transition-transform', isCollapsed && '-scale-x-100')} />
+        </Button>
+
+        <Button
+          onClick={() => setIsGlobalSearchOpen(true)}
+          className="justify-start px-3 text-muted-foreground hover:text-muted-foreground"
+          variant="outline"
+        >
+          <SearchIcon className={cn('h-4 w-4 shrink-0')} />
+
+          {!isCollapsed && (
+            <span className="ml-2 flex w-full items-center">
+              Search
+              <CommandShortcut>⌘K</CommandShortcut>
+            </span>
+          )}
         </Button>
 
         <nav className="flex flex-1 flex-col">
