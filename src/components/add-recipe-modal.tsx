@@ -4,6 +4,7 @@ import { Modal, ModalContent, ModalDescription, ModalHeader, ModalTitle, ModalTr
 import { Slot } from '@radix-ui/react-slot';
 import type { LucideIcon } from 'lucide-react';
 import { ChevronRightIcon, LinkIcon, PenSquareIcon, Wand2Icon } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
 type CreateRecipeModalProps = {
@@ -22,21 +23,13 @@ export function AddRecipeModal({ children }: CreateRecipeModalProps) {
         </ModalHeader>
 
         <div className="flex flex-col gap-6">
-          <Modal>
-            <ModalTrigger asChild>
-              <AddRecipeButton
-                icon={PenSquareIcon}
-                title="Add manually"
-                description="Manually create a new recipe with Chowder"
-              />
-            </ModalTrigger>
-
-            <ModalContent>
-              <ModalHeader>
-                <ModalTitle>Create Recipe</ModalTitle>
-              </ModalHeader>
-            </ModalContent>
-          </Modal>
+          <Link href="/recipes/new">
+            <AddRecipeButton
+              icon={PenSquareIcon}
+              title="Add manually"
+              description="Manually create a new recipe with Chowder"
+            />
+          </Link>
 
           <Modal>
             <ModalTrigger asChild>

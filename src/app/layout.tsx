@@ -30,23 +30,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider>
       <html
-        className="flex h-[100dvh] pt-[env(safe-area-inset-top)] antialiased [-webkit-tap-highlight-color:transparent]"
+        className={cn(inter.className, 'h-[100dvh] antialiased [-webkit-tap-highlight-color:transparent]')}
         lang="en"
         suppressHydrationWarning
       >
-        <body
-          className={cn(
-            inter.className,
-            'flex w-full flex-col overflow-hidden bg-background text-foreground lg:flex-row',
-          )}
-        >
-          <Providers>
-            <GlobalSearch />
-            <DesktopNav />
-            {/* <Header /> */}
-            <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
-            <MobileNav />
-          </Providers>
+        <body>
+          <div className="flex h-[100dvh] w-full flex-col overflow-hidden bg-background pt-[env(safe-area-inset-top)] text-foreground lg:flex-row">
+            <Providers>
+              <GlobalSearch />
+              <DesktopNav />
+              {/* <Header /> */}
+              <main className="flex flex-1 flex-col overflow-auto">{children}</main>
+              <MobileNav />
+            </Providers>
+          </div>
         </body>
       </html>
     </ClerkProvider>

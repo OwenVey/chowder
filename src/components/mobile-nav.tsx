@@ -25,7 +25,7 @@ export default function MobileNav() {
         href={item.href}
         className={cn(
           'grid place-items-center rounded-lg text-sm',
-          item.href === pathname ? 'text-primary' : 'text-muted-foreground',
+          pathname.startsWith(item.href) ? 'text-primary' : 'text-muted-foreground',
         )}
       >
         <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />

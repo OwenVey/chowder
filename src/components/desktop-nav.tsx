@@ -31,7 +31,7 @@ export function DesktopNav() {
 
         <Button
           onClick={toggleIsCollapsed}
-          size="icon-sm"
+          size="icon"
           variant="outline"
           className="absolute -right-4 top-12 rounded-full opacity-0 transition-opacity group-hover/nav:opacity-100"
         >
@@ -65,14 +65,16 @@ export function DesktopNav() {
                         href={item.href}
                         className={cn(
                           'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
-                          item.href === pathname
+                          pathname.startsWith(item.href)
                             ? 'bg-primary text-white'
                             : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                         )}
                       >
                         <item.icon
                           className={cn(
-                            item.href === pathname ? 'text-white' : 'text-muted-foreground group-hover:text-foreground',
+                            pathname.startsWith(item.href)
+                              ? 'text-white'
+                              : 'text-muted-foreground group-hover:text-foreground',
                             'h-6 w-6 shrink-0',
                           )}
                           aria-hidden="true"

@@ -1,23 +1,25 @@
-import { PlusIcon } from 'lucide-react';
-import { AddRecipeModal } from './add-recipe-modal';
-import { Button } from './ui/button';
+import { ChevronLeftIcon } from 'lucide-react';
+import Link from 'next/link';
 
-export default function Header() {
+type HeaderProps = {
+  title: string;
+  backHref?: string;
+  backLabel?: string;
+  children?: React.ReactNode;
+};
+export default function Header({ title, backHref, backLabel, children }: HeaderProps) {
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 items-center border-b bg-background/50 px-4 pt-[calc(env(safe-area-inset-top)-10px)] backdrop-blur-md lg:left-20">
-      <div className="grid h-14 grid-cols-3 items-center">
-        {/* <div>Left</div> */}
-        <div className="col-start-2 justify-self-center font-medium lg:col-span-2 lg:col-start-1 lg:justify-self-start">
-          Recipes
-        </div>
-        <div className="justify-self-end">
-          <AddRecipeModal>
-            <Button size="icon-sm" variant="ghost">
-              <PlusIcon className="h-5 w-5" />
-            </Button>
-          </AddRecipeModal>
-        </div>
-      </div>
+    <header className="grid grid-cols-3 items-center border-b bg-background p-2">
+      {backHref ? (
+        <Link href={backHref} className="flex items-center">
+          <ChevronLeftIcon className="h-6 w-6" />
+          <span className="text-sm">{backLabel ? backLabel : 'Back'}</span>
+        </Link>
+      ) : (
+        <div></div>
+      )}
+      <h1 className="justify-self-center font-medium">{title}</h1>
+      <div className="flex gap-2 justify-self-end">{children}</div>
     </header>
   );
 }
