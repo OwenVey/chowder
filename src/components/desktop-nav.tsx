@@ -3,9 +3,9 @@
 import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store';
+import { UserButton } from '@clerk/nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeftToLineIcon, SearchIcon, SoupIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useToggle } from 'usehooks-ts';
@@ -94,7 +94,8 @@ export function DesktopNav() {
 
             <ThemeToggle />
             <li className={cn('mt-auto flex items-center justify-between gap-4 py-3')}>
-              <button className="flex shrink-0 items-center gap-x-4 text-sm font-semibold text-foreground">
+              <UserButton showName />
+              {/* <button className="flex shrink-0 items-center gap-x-4 text-sm font-semibold text-foreground">
                 <Image
                   className="h-10 w-10 rounded-full bg-muted"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -104,7 +105,7 @@ export function DesktopNav() {
                   unoptimized
                 />
                 {!isCollapsed && 'Tom Cook'}
-              </button>
+              </button> */}
             </li>
           </ul>
         </nav>

@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <GlobalSearch />
               <DesktopNav />
               {/* <Header /> */}
-              <main className="flex flex-1 flex-col overflow-auto">{children}</main>
+              <div className="flex flex-1 flex-col overflow-auto">{children}</div>
               <MobileNav />
             </Providers>
           </div>

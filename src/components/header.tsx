@@ -9,9 +9,9 @@ type HeaderProps = {
 };
 export default function Header({ title, backHref, backLabel, children }: HeaderProps) {
   return (
-    <header className="grid grid-cols-3 items-center border-b bg-background p-2">
+    <header className="grid h-14 grid-cols-3 items-center border-b bg-background px-2">
       {backHref ? (
-        <Link href={backHref} className="flex items-center">
+        <Link href={backHref} className="flex w-fit items-center">
           <ChevronLeftIcon className="h-6 w-6" />
           <span className="text-sm">{backLabel ? backLabel : 'Back'}</span>
         </Link>

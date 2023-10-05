@@ -46,7 +46,8 @@
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 142.1 70.6% 45.3%;
+    --primary: 142 76% 36%;
+
     /* --primary: 0 0% 98%; */
     --primary-foreground: 0 0% 9%;
 
@@ -59,7 +60,9 @@
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    /* --destructive: 0 62.8% 30.6%; */ /* red-900 */
+    /* --destructive: 0 70% 35.3%; red-800 */
+    --destructive: 0 73.7% 41.8%; /* red-700 */
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 14.9%;
