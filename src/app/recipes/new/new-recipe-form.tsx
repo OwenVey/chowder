@@ -26,7 +26,7 @@ export function NewRecipeForm({ create }: { create: (recipe: Omit<RecipeCreate, 
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      image: 'https://picsum.photos/200',
+      image: `https://picsum.photos/seed/${new Date().getTime()}/200`,
       description: '',
       servings: 1,
       ingredients: '',
