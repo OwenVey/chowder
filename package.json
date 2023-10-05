@@ -4,20 +4,21 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write --ignore-path .gitignore ."
+    "format": "prettier --write --ignore-path .gitignore .",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.25.1",
+    "@clerk/nextjs": "^4.25.2",
     "@hookform/resolvers": "^3.3.1",
-    "@prisma/client": "5.4.0",
+    "@prisma/client": "5.4.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
-    "@t3-oss/env-nextjs": "^0.6.1",
+    "@t3-oss/env-nextjs": "^0.7.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
@@ -26,7 +27,8 @@
     "lucide-react": "^0.284.0",
     "next": "latest",
     "next-themes": "^0.2.1",
-    "prisma": "^5.4.0",
+    "parse-ingredient": "^1.0.1",
+    "prisma": "^5.4.1",
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "^7.47.0",
@@ -35,7 +37,7 @@
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^2.9.1",
     "vaul": "^0.7.0",
-    "zod": "^3.22.3",
+    "zod": "^3.22.4",
     "zustand": "^4.4.2"
   },
   "devDependencies": {

@@ -19,7 +19,7 @@ export function DesktopNav() {
   const setIsGlobalSearchOpen = useStore((state) => state.setIsGlobalSearchOpen);
 
   return (
-    <motion.div
+    <motion.aside
       className="group/nav relative z-50 hidden shrink-0 flex-col lg:flex"
       initial={{ width: isCollapsed ? 'auto' : '18rem' }}
       animate={{ width: isCollapsed ? 'auto' : '18rem' }}
@@ -94,7 +94,7 @@ export function DesktopNav() {
 
             <ThemeToggle />
             <li className={cn('mt-auto flex items-center justify-between gap-4 py-3')}>
-              <UserButton showName />
+              <UserButton />
               {/* <button className="flex shrink-0 items-center gap-x-4 text-sm font-semibold text-foreground">
                 <Image
                   className="h-10 w-10 rounded-full bg-muted"
@@ -110,6 +110,6 @@ export function DesktopNav() {
           </ul>
         </nav>
       </div>
-    </motion.div>
+    </motion.aside>
   );
 }

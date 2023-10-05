@@ -10,7 +10,11 @@ generator client {
 
 model Recipe {
   id          String  @id @default(cuid())
-  name        String
-  description String?
+  name        String  @db.Text
+  image       String? @db.Text
+  description String? @db.Text
   userId      String
+  servings    Int?
+  ingredients String? @db.Text
+  directions  String? @db.Text
 }

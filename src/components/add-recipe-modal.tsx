@@ -1,6 +1,8 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { Modal, ModalContent, ModalDescription, ModalHeader, ModalTitle, ModalTrigger } from '@/components/ui/modal';
+import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import type { LucideIcon } from 'lucide-react';
 import { ChevronRightIcon, LinkIcon, PenSquareIcon, Wand2Icon } from 'lucide-react';
@@ -22,9 +24,10 @@ export function AddRecipeModal({ children }: CreateRecipeModalProps) {
           </ModalDescription>
         </ModalHeader>
 
-        <div className="flex flex-col gap-6">
-          <Link href="/recipes/new">
+        <div className="flex flex-col gap-2">
+          <Link href="/recipes/new" className="flex">
             <AddRecipeButton
+              className="flex-1"
               icon={PenSquareIcon}
               title="Add manually"
               description="Manually create a new recipe with Chowder"
@@ -69,18 +72,19 @@ interface AddRecipeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElem
 }
 
 const AddRecipeButton = React.forwardRef<HTMLButtonElement, AddRecipeButtonProps>(
-  ({ title, description, icon: Icon, ...props }, ref) => {
-    const Comp = props.asChild ? Slot : 'button';
+  ({ title, description, icon: Icon, className, ...props }, ref) => {
+    const Comp = props.asChild ? Slot : Button;
     return (
       <Comp
+        variant="ghost"
         ref={ref}
         key={title}
-        className="flex items-center rounded text-left hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:-mx-4 lg:-my-2 lg:px-4 lg:py-2"
+        className={cn('h-auto px-0 py-2 text-left lg:-mx-4 lg:px-4', className)}
         {...props}
       >
         <Icon className="h-6 w-6 text-muted-foreground lg:h-5 lg:w-5" />
         <div className="ml-4">
-          <div className="font-medium lg:text-sm">{title}</div>
+          <div className="text-base font-medium lg:text-sm">{title}</div>
           <p className="text-sm text-muted-foreground lg:text-xs">{description}</p>
         </div>
         <ChevronRightIcon className="ml-auto h-6 w-6 text-muted-foreground lg:h-5 lg:w-5" />

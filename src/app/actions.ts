@@ -1,21 +1,22 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { Prisma } from '@prisma/client';
+import type { RecipeCreate } from '@/types';
+import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
-export async function createRecipe(userId: string, recipe: RecipeData) {
-  console.log('createRecipe()');
+export async function createRecipe(recipe: Omit<RecipeCreate, 'userId'>) {
+  const { userId } = auth();
+  if (!userId) {
+    throw new Error('You must be signed in to create a new recipe');
+  }
 
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const newRecipe = await db.recipe.create({ data: { ...recipe, userId } });
   redirect(`/recipes/${newRecipe.id}`);
 }
 
-const recipeData = Prisma.validator<Prisma.RecipeDefaultArgs>()({
-  select: {
-    name: true,
-    description: true,
-  },
-});
-
-type RecipeData = Prisma.RecipeGetPayload<typeof recipeData>;
+export async function deleteRecipe(id: string) {
+  await db.recipe.delete({ where: { id } });
+  redirect('/');
+}

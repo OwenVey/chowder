@@ -36,7 +36,7 @@ export default function MobileNav() {
 
   return (
     <nav className="flex w-full items-center gap-x-6 border-t bg-background pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-3 lg:hidden">
-      <ul role="list" className="flex w-full items-center justify-between">
+      <ul role="list" className="flex w-full">
         {firstHalfItems.map(renderNavItem)}
 
         <li className="flex flex-1 justify-center">
