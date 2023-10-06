@@ -1,11 +1,19 @@
 'use client';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Skeleton } from '@/components/ui/skeleton';
 import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store';
-import { UserButton } from '@clerk/nextjs';
+import { SignOutButton, useUser } from '@clerk/nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeftToLineIcon, SearchIcon, SoupIcon } from 'lucide-react';
+import { ArrowLeftToLineIcon, LogOutIcon, SearchIcon, SettingsIcon, SoupIcon } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useToggle } from 'usehooks-ts';
@@ -17,6 +25,7 @@ export function DesktopNav() {
   const pathname = usePathname();
   const [isCollapsed, toggleIsCollapsed] = useToggle();
   const setIsGlobalSearchOpen = useStore((state) => state.setIsGlobalSearchOpen);
+  const { user } = useUser();
 
   return (
     <motion.aside
@@ -24,7 +33,7 @@ export function DesktopNav() {
       initial={{ width: isCollapsed ? 'auto' : '18rem' }}
       animate={{ width: isCollapsed ? 'auto' : '18rem' }}
     >
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-background px-4">
+      <div className="flex grow flex-col gap-y-5 overflow-hidden border-r bg-background px-4">
         <div className="flex h-16 shrink-0 items-center">
           <SoupIcon className="h-8 w-10 text-primary" />
         </div>
@@ -53,62 +62,94 @@ export function DesktopNav() {
           )}
         </Button>
 
-        <nav className="flex flex-1 flex-col">
-          <ul role="list" className="flex flex-1 flex-col gap-y-7">
-            <li>
-              <ul role="list" className="space-y-2">
-                {navigation
-                  .filter(({ device }) => device !== 'mobile')
-                  .map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
-                          pathname.startsWith(item.href)
-                            ? 'bg-primary text-white'
-                            : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                        )}
-                      >
-                        <item.icon
-                          className={cn(
-                            pathname.startsWith(item.href)
-                              ? 'text-white'
-                              : 'text-muted-foreground group-hover:text-foreground',
-                            'h-6 w-6 shrink-0',
-                          )}
-                          aria-hidden="true"
-                        />
-                        <AnimatePresence initial={false} mode="popLayout">
-                          {!isCollapsed && (
-                            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                              {item.name}
-                            </motion.span>
-                          )}
-                        </AnimatePresence>
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </li>
+        <nav className="overflow-y-auto">
+          <ul role="list" className="space-y-2">
+            {navigation
+              .filter(({ device }) => device !== 'mobile')
+              .map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
+                      pathname.startsWith(item.href)
+                        ? 'bg-primary text-white'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                    )}
+                  >
+                    <item.icon
+                      className={cn(
+                        pathname.startsWith(item.href)
+                          ? 'text-white'
+                          : 'text-muted-foreground group-hover:text-foreground',
+                        'h-6 w-6 shrink-0',
+                      )}
+                      aria-hidden="true"
+                    />
+                    <AnimatePresence initial={false} mode="popLayout">
+                      {!isCollapsed && (
+                        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                          {item.name}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </nav>
 
-            <ThemeToggle />
-            <li className={cn('mt-auto flex items-center justify-between gap-4 py-3')}>
-              <UserButton />
-              {/* <button className="flex shrink-0 items-center gap-x-4 text-sm font-semibold text-foreground">
+        <ThemeToggle />
+        <div className={cn('mt-auto flex items-center justify-between gap-4 py-3')}>
+          {/* <UserButton /> */}
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex w-full shrink-0 items-center gap-4 text-left">
                 <Image
                   className="h-10 w-10 rounded-full bg-muted"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt="image of user"
+                  src={user.imageUrl}
+                  alt="User image"
                   width={40}
                   height={40}
                   unoptimized
                 />
-                {!isCollapsed && 'Tom Cook'}
-              </button> */}
-            </li>
-          </ul>
-        </nav>
+                <AnimatePresence initial={false} mode="popLayout">
+                  {!isCollapsed && (
+                    <motion.div
+                      className="overflow-hidden"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <div className="truncate text-sm font-semibold text-foreground">{user.fullName}</div>
+                      <div className="truncate text-xs text-muted-foreground">
+                        {user.primaryEmailAddress?.emailAddress}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <SettingsIcon className="mr-2 h-4 w-4" />
+                  Manage Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogOutIcon className="mr-2 h-4 w-4" />
+                  <SignOutButton />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <div className="flex shrink-0 items-center gap-4">
+              <Skeleton className="h-10 w-10 rounded-full" />
+              <div className="space-y-1">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-3 w-40" />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </motion.aside>
   );
