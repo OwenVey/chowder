@@ -32,8 +32,8 @@ export function DesktopNav() {
   return (
     <motion.aside
       className="group/nav relative z-50 hidden shrink-0 flex-col border-r bg-background lg:flex"
-      initial={{ width: isCollapsed ? 'auto' : '18rem' }}
-      animate={{ width: isCollapsed ? 'auto' : '18rem' }}
+      initial={{ width: isCollapsed ? '73px' : '18rem' }}
+      animate={{ width: isCollapsed ? '73px' : '18rem' }}
     >
       <div className="flex flex-col gap-y-5 px-4">
         <div className="flex h-16 shrink-0 items-center">
@@ -66,7 +66,7 @@ export function DesktopNav() {
 
         <Separator />
 
-        <nav className="overflow-y-auto">
+        <nav className="overflow-y-auto overflow-x-hidden">
           <ul role="list" className="space-y-2">
             {navigation
               .filter(({ device }) => device !== 'mobile')
@@ -90,7 +90,7 @@ export function DesktopNav() {
                       )}
                       aria-hidden="true"
                     />
-                    <AnimatePresence initial={false} mode="popLayout">
+                    <AnimatePresence initial={false}>
                       {!isCollapsed && (
                         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                           {item.name}
@@ -117,7 +117,7 @@ export function DesktopNav() {
                 height={40}
                 unoptimized
               />
-              <AnimatePresence initial={false} mode="popLayout">
+              <AnimatePresence initial={false}>
                 {!isCollapsed && (
                   <motion.div
                     className="overflow-hidden"
