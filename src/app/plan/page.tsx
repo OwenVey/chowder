@@ -1,6 +1,11 @@
 import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { auth } from '@clerk/nextjs';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Chowder - Plan',
+};
 
 export default async function PlanPage() {
   const { userId } = auth();

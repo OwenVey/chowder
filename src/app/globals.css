@@ -62,7 +62,8 @@
 
     /* --destructive: 0 62.8% 30.6%; */ /* red-900 */
     /* --destructive: 0 70% 35.3%; red-800 */
-    --destructive: 0 73.7% 41.8%; /* red-700 */
+    /* --destructive: 0 73.7% 41.8%; red-700 */
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 14.9%;

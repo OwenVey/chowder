@@ -21,7 +21,7 @@ export default function Header({ title, backHref, backLabel, children }: HeaderP
       <h1 className="max-w-[15rem] justify-self-center truncate whitespace-nowrap font-medium lg:max-w-none">
         {title}
       </h1>
-      <div className="flex gap-2 justify-self-end">{children}</div>
+      <div className="flex gap-1 justify-self-end">{children}</div>
     </header>
   );
 }

@@ -1,20 +1,28 @@
-import { deleteRecipe } from '@/app/actions';
+import { deleteRecipe, getRecipe } from '@/app/recipes/actions';
+
 import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { Button } from '@/components/ui/button';
-import { db } from '@/lib/db';
 import numberToFraction from '@/lib/utils';
-import { Trash2Icon } from 'lucide-react';
+import { PenSquareIcon, Trash2Icon } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import { parseIngredient } from 'parse-ingredient';
 
-type RecipePageProps = { params: { id: string } };
+type RecipePageProps = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: RecipePageProps): Promise<Metadata> {
+  const recipe = await getRecipe(params.id);
+
+  return {
+    title: `Chowder - ${recipe?.name}`,
+  };
+}
 
 export default async function RecipePage({ params }: RecipePageProps) {
-  const recipe = await db.recipe.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+  const recipe = await getRecipe(params.id);
 
   if (!recipe) return <div>No recipe found</div>;
 
@@ -23,8 +31,13 @@ export default async function RecipePage({ params }: RecipePageProps) {
   return (
     <>
       <Header backHref="/recipes" title={recipe.name}>
+        <Button size="icon" variant="ghost">
+          <Link href={`/recipes/${recipe.id}/edit`}>
+            <PenSquareIcon className="h-5 w-5" />
+          </Link>
+        </Button>
         <form action={deleteRecipe.bind(null, recipe.id)}>
-          <Button type="submit" size="icon" variant="destructive">
+          <Button type="submit" size="icon" variant="destructive-ghost">
             <Trash2Icon className="h-5 w-5" />
           </Button>
         </form>
