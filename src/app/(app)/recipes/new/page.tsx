@@ -1,4 +1,3 @@
-import { createRecipe } from '@/app/(app)/recipes/actions';
 import { NewRecipeForm } from '@/app/(app)/recipes/new/new-recipe-form';
 import Header from '@/components/header';
 import { Main } from '@/components/main';
@@ -13,7 +12,7 @@ export default function NewRecipePage() {
         </Button>
       </Header>
       <Main>
-        <NewRecipeForm create={createRecipe} />
+        <NewRecipeForm />
       </Main>
     </>
   );

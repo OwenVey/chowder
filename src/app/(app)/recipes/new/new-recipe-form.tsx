@@ -1,10 +1,10 @@
 'use client';
 
+import { createRecipe } from '@/app/(app)/recipes/actions';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import type { RecipeCreate } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,7 +21,7 @@ const formSchema = z.object({
   directions: z.string(),
 });
 
-export function NewRecipeForm({ create }: { create: (recipe: Omit<RecipeCreate, 'userId'>) => void }) {
+export function NewRecipeForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,7 +38,7 @@ export function NewRecipeForm({ create }: { create: (recipe: Omit<RecipeCreate, 
 
   async function onSubmit(recipe: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    create(recipe);
+    createRecipe(recipe);
   }
 
   return (
