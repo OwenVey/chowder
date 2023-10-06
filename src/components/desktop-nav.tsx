@@ -1,5 +1,6 @@
 'use client';
 
+import { Logo } from '@/components/logo';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { useStore } from '@/store';
 import { SignOutButton, useUser } from '@clerk/nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeftToLineIcon, LogOutIcon, SearchIcon, SettingsIcon, SoupIcon } from 'lucide-react';
+import { ArrowLeftToLineIcon, LogOutIcon, SearchIcon, SettingsIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -35,7 +36,7 @@ export function DesktopNav() {
     >
       <div className="flex grow flex-col gap-y-5 overflow-hidden border-r bg-background px-4">
         <div className="flex h-16 shrink-0 items-center">
-          <SoupIcon className="h-8 w-10 text-primary" />
+          <Logo className="h-8 w-10" />
         </div>
 
         <Button

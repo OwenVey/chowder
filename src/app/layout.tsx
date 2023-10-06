@@ -1,7 +1,4 @@
-import { DesktopNav } from '@/components/desktop-nav';
 // import Header from '@/components/header';
-import { GlobalSearch } from '@/components/global-search';
-import MobileNav from '@/components/mobile-nav';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
 import { ClerkProvider } from '@clerk/nextjs';
@@ -36,13 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <body>
           <div className="flex h-[100dvh] w-full flex-col overflow-hidden bg-background pt-[env(safe-area-inset-top)] text-foreground lg:flex-row">
-            <Providers>
-              <GlobalSearch />
-              <DesktopNav />
-              {/* <Header /> */}
-              <div className="flex flex-1 flex-col overflow-auto">{children}</div>
-              <MobileNav />
-            </Providers>
+            <Providers>{children}</Providers>
           </div>
         </body>
       </html>

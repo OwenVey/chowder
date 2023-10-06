@@ -1,5 +1,5 @@
-import { getRecipesByUserId } from '@/app/recipes/actions';
-import { RecipeCard } from '@/app/recipes/recipe-card';
+import { getRecipesByUserId } from '@/app/(app)/recipes/actions';
+import { RecipeCard } from '@/app/(app)/recipes/recipe-card';
 import { AddRecipeModal } from '@/components/add-recipe-modal';
 import Header from '@/components/header';
 import { Main } from '@/components/main';

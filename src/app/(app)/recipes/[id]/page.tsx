@@ -1,4 +1,4 @@
-import { deleteRecipe, getRecipe } from '@/app/recipes/actions';
+import { deleteRecipe, getRecipe } from '@/app/(app)/recipes/actions';
 
 import Header from '@/components/header';
 import { Main } from '@/components/main';

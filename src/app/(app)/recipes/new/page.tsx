@@ -1,5 +1,5 @@
-import { createRecipe } from '@/app/recipes/actions';
-import { NewRecipeForm } from '@/app/recipes/new/new-recipe-form';
+import { createRecipe } from '@/app/(app)/recipes/actions';
+import { NewRecipeForm } from '@/app/(app)/recipes/new/new-recipe-form';
 import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { Button } from '@/components/ui/button';

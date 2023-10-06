@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteRecipe } from '@/app/recipes/actions';
+import { deleteRecipe } from '@/app/(app)/recipes/actions';
 import {
   AlertDialog,
   AlertDialogAction,

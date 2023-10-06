@@ -1,4 +1,4 @@
-import { getRecipe } from '@/app/recipes/actions';
+import { getRecipe } from '@/app/(app)/recipes/actions';
 import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { Button } from '@/components/ui/button';
