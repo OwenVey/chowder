@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
@@ -30,13 +31,13 @@ export function DesktopNav() {
 
   return (
     <motion.aside
-      className="group/nav relative z-50 hidden shrink-0 flex-col lg:flex"
+      className="group/nav relative z-50 hidden shrink-0 flex-col border-r bg-background lg:flex"
       initial={{ width: isCollapsed ? 'auto' : '18rem' }}
       animate={{ width: isCollapsed ? 'auto' : '18rem' }}
     >
-      <div className="flex grow flex-col gap-y-5 overflow-hidden border-r bg-background px-4">
+      <div className="flex flex-col gap-y-5 px-4">
         <div className="flex h-16 shrink-0 items-center">
-          <Logo className="h-8 w-10" />
+          <Logo className="h-8 w-8" />
         </div>
 
         <Button
@@ -50,10 +51,10 @@ export function DesktopNav() {
 
         <Button
           onClick={() => setIsGlobalSearchOpen(true)}
-          className="justify-start px-3 text-muted-foreground hover:text-muted-foreground"
+          className="h-10 justify-start px-2 text-muted-foreground hover:text-muted-foreground"
           variant="outline"
         >
-          <SearchIcon className={cn('h-4 w-4 shrink-0')} />
+          <SearchIcon className={cn('ml-0.5 h-4 w-4 shrink-0')} />
 
           {!isCollapsed && (
             <span className="ml-2 flex w-full items-center">
@@ -62,6 +63,8 @@ export function DesktopNav() {
             </span>
           )}
         </Button>
+
+        <Separator />
 
         <nav className="overflow-y-auto">
           <ul role="list" className="space-y-2">
@@ -72,7 +75,7 @@ export function DesktopNav() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'group flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
+                      'group flex w-full items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
                       pathname.startsWith(item.href)
                         ? 'bg-primary text-white'
                         : 'text-muted-foreground hover:bg-muted hover:text-foreground',
@@ -99,58 +102,59 @@ export function DesktopNav() {
               ))}
           </ul>
         </nav>
+      </div>
 
-        <ThemeToggle />
-        <div className={cn('mt-auto flex items-center justify-between gap-4 py-3')}>
-          {/* <UserButton /> */}
-          {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex w-full shrink-0 items-center gap-4 text-left">
-                <Image
-                  className="h-10 w-10 rounded-full bg-muted"
-                  src={user.imageUrl}
-                  alt="User image"
-                  width={40}
-                  height={40}
-                  unoptimized
-                />
-                <AnimatePresence initial={false} mode="popLayout">
-                  {!isCollapsed && (
-                    <motion.div
-                      className="overflow-hidden"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <div className="truncate text-sm font-semibold text-foreground">{user.fullName}</div>
-                      <div className="truncate text-xs text-muted-foreground">
-                        {user.primaryEmailAddress?.emailAddress}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <SettingsIcon className="mr-2 h-4 w-4" />
-                  Manage Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <LogOutIcon className="mr-2 h-4 w-4" />
-                  <SignOutButton />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <div className="flex shrink-0 items-center gap-4">
-              <Skeleton className="h-10 w-10 rounded-full" />
-              <div className="space-y-1">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-3 w-40" />
-              </div>
+      <div className={cn('mt-auto flex w-full items-center justify-between gap-4 border-t px-4 py-3')}>
+        {/* <UserButton /> */}
+        {user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex flex-1 shrink-0 items-center gap-4 overflow-hidden text-left">
+              <Image
+                className="h-10 w-10 rounded-full bg-muted"
+                src={user.imageUrl}
+                alt="User image"
+                width={40}
+                height={40}
+                unoptimized
+              />
+              <AnimatePresence initial={false} mode="popLayout">
+                {!isCollapsed && (
+                  <motion.div
+                    className="overflow-hidden"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="truncate text-sm font-semibold text-foreground">{user.fullName}</div>
+                    <div className="truncate text-xs text-muted-foreground">
+                      {user.primaryEmailAddress?.emailAddress}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="start" sideOffset={16}>
+              <DropdownMenuItem>
+                <SettingsIcon className="mr-2 h-4 w-4" />
+                Manage Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogOutIcon className="mr-2 h-4 w-4" />
+                <SignOutButton />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <div className="flex shrink-0 items-center gap-4">
+            <Skeleton className="h-10 w-10 rounded-full" />
+            <div className="space-y-1">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-36" />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        {!isCollapsed && <ThemeToggle />}
       </div>
     </motion.aside>
   );
