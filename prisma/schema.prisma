@@ -19,6 +19,7 @@ model Recipe {
   cookTime    Int?
   ingredients String?  @db.Text
   directions  String?  @db.Text
+  public      Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

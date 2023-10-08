@@ -4,6 +4,7 @@ import { createRecipe } from '@/app/(app)/recipes/actions';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -21,6 +22,7 @@ const formSchema = z.object({
   cookTime: z.coerce.number().min(0),
   ingredients: z.string(),
   directions: z.string(),
+  public: z.boolean(),
 });
 
 export function NewRecipeForm() {
@@ -35,6 +37,7 @@ export function NewRecipeForm() {
       cookTime: 0,
       ingredients: '',
       directions: '',
+      public: true,
     },
   });
 
@@ -163,6 +166,19 @@ export function NewRecipeForm() {
               </FormControl>
 
               <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="public"
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-2 space-y-0">
+              <FormControl>
+                <Switch checked={field.value} onCheckedChange={field.onChange} />
+              </FormControl>
+              <FormLabel>Public</FormLabel>
             </FormItem>
           )}
         />

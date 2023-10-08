@@ -4,9 +4,11 @@ import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { Button } from '@/components/ui/button';
 import numberToFraction from '@/lib/utils';
+import { auth } from '@clerk/nextjs';
 import { PenSquareIcon, Trash2Icon } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { parseIngredient } from 'parse-ingredient';
 
 type RecipePageProps = {
@@ -17,14 +19,20 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
   const recipe = await getRecipe(params.id);
 
   return {
-    title: `Chowder - ${recipe?.name}`,
+    title: `Chowder - ${recipe?.name ?? 'Recipe Not Found'}`,
   };
 }
 
 export default async function RecipePage({ params }: RecipePageProps) {
-  const recipe = await getRecipe(params.id);
+  const { userId } = auth();
 
-  if (!recipe) return <div>No recipe found</div>;
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
+  const recipe = await getRecipe(params.id);
+  if (!recipe) notFound();
+  if (!recipe.public && userId !== recipe.userId) return <div>Recipe is private</div>;
 
   const ingredients = parseIngredient(recipe.ingredients ?? '');
 
