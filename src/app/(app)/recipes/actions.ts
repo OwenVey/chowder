@@ -1,10 +1,10 @@
 'use server';
 
-import { db } from '@/lib/db';
 import type { RecipeCreate, RecipeUpdate } from '@/types';
 import { auth } from '@clerk/nextjs';
 import { revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { db } from '~/prisma/db';
 
 export async function createRecipe(recipe: Omit<RecipeCreate, 'userId'>) {
   const { userId } = auth();

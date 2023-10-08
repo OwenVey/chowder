@@ -9,12 +9,16 @@ generator client {
 }
 
 model Recipe {
-  id          String  @id @default(cuid())
-  name        String  @db.Text
-  image       String? @db.Text
-  description String? @db.Text
+  id          String   @id @default(cuid())
+  name        String   @db.Text
+  image       String?  @db.Text
+  description String?  @db.Text
   userId      String
   servings    Int?
-  ingredients String? @db.Text
-  directions  String? @db.Text
+  prepTime    Int?
+  cookTime    Int?
+  ingredients String?  @db.Text
+  directions  String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

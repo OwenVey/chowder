@@ -17,6 +17,8 @@ const formSchema = z.object({
   image: z.string(),
   description: z.string(),
   servings: z.coerce.number().min(1),
+  prepTime: z.coerce.number().min(0),
+  cookTime: z.coerce.number().min(0),
   ingredients: z.string(),
   directions: z.string(),
 });
@@ -29,6 +31,8 @@ export function NewRecipeForm() {
       image: `https://picsum.photos/seed/${new Date().getTime()}/200`,
       description: '',
       servings: 1,
+      prepTime: 0,
+      cookTime: 0,
       ingredients: '',
       directions: '',
     },
@@ -88,21 +92,50 @@ export function NewRecipeForm() {
             </FormItem>
           )}
         />
+        <div className="flex gap-4">
+          <FormField
+            control={form.control}
+            name="servings"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Servings</FormLabel>
+                <FormControl>
+                  <Input type="number" inputMode="numeric" min={1} {...field} />
+                </FormControl>
 
-        <FormField
-          control={form.control}
-          name="servings"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Servings</FormLabel>
-              <FormControl>
-                <Input type="number" inputMode="numeric" min={1} {...field} />
-              </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="prepTime"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Prep Time</FormLabel>
+                <FormControl>
+                  <Input type="number" inputMode="numeric" trailingLabel="min" min={1} {...field} />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cookTime"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Cook Time</FormLabel>
+                <FormControl>
+                  <Input type="number" inputMode="numeric" trailingLabel="min" min={1} {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}

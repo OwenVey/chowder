@@ -43,11 +43,16 @@ export default async function RecipePage({ params }: RecipePageProps) {
         </form>
       </Header>
 
-      <Main>
+      <Main className="space-y-10">
         <div className="text-2xl font-bold">{recipe.name}</div>
         <div className="text-muted-foreground">{recipe.description}</div>
+        <div className="">
+          <div>{recipe.servings} servings</div>
+          <div>Prep Time: {recipe.prepTime} min</div>
+          <div>Cook Time: {recipe.cookTime} min</div>
+        </div>
         {ingredients.length > 0 && (
-          <div className="mt-10 flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             {ingredients.map((ingredient) => (
               <div key={ingredient.description} className="flex items-center gap-1">
                 {ingredient.quantity && (
@@ -61,7 +66,7 @@ export default async function RecipePage({ params }: RecipePageProps) {
             ))}
           </div>
         )}
-        <div className="mt-10">
+        <div className="space-y-4">
           {recipe.directions?.split('\n').map((step, index) => <div key={index}>{step}</div>)}
         </div>
       </Main>
