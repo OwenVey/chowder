@@ -31,8 +31,8 @@ export default async function RecipesPage() {
         </AddRecipeModal>
       </Header>
 
-      <Main>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
+      <Main className="@container">
+        <div className="@2xl:grid-cols-3 @7xl:grid-cols-4 grid grid-cols-2 gap-4">
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
