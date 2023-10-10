@@ -43,8 +43,7 @@ async function main() {
 
         Stir in turkey and cook until evenly brown; drain.
         
-        Mix in tomatoes and pumpkin. Season with chili powder, pepper, and salt. Reduce heat to low, cover, and simmer 15 to 20 minutes. Serve topped with Cheddar cheese and sour cream.
-        `,
+        Mix in tomatoes and pumpkin. Season with chili powder, pepper, and salt. Reduce heat to low, cover, and simmer 15 to 20 minutes. Serve topped with Cheddar cheese and sour cream.`,
     },
   });
 

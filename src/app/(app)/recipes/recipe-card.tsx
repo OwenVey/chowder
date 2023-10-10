@@ -15,7 +15,7 @@ import {
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from '@/components/ui/context-menu';
 import type { Recipe } from '@prisma/client';
 
-import { PenSquareIcon, Trash2Icon } from 'lucide-react';
+import { PenSquareIcon, TimerIcon, Trash2Icon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -26,10 +26,10 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         <ContextMenuTrigger>
           <Link
             href={`/recipes/${recipe.id}`}
-            className="flex flex-col overflow-hidden rounded-xl border hover:bg-muted"
+            className="flex:row flex overflow-hidden rounded-xl border hover:bg-muted @xl:flex-col"
           >
             <Image
-              className="h-40 w-full object-cover"
+              className="h-28 w-24 object-cover @xl:h-40 @xl:w-full"
               src={recipe?.image ?? 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg'}
               alt="TODO"
               width={100}
@@ -38,7 +38,13 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
             />
             <div className="flex flex-col px-4 py-2">
               <div className="line-clamp-1 font-semibold">{recipe.name}</div>
-              <div className="mt-1 line-clamp-2 text-sm text-muted-foreground">{recipe.description}</div>
+              <div className="line-clamp-2 text-sm text-muted-foreground">{recipe.description}</div>
+              <div className="mt-2 flex items-center text-xs font-medium text-muted-foreground">
+                <div className="flex items-center">
+                  <TimerIcon className="mr-1 h-4 w-4" />
+                  {(recipe?.prepTime ?? 0) + (recipe?.cookTime ?? 0)} min
+                </div>
+              </div>
             </div>
           </Link>
         </ContextMenuTrigger>

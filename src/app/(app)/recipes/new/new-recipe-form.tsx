@@ -16,12 +16,12 @@ const formSchema = z.object({
     message: 'Name must be at least 2 characters.',
   }),
   image: z.string(),
-  description: z.string(),
+  description: z.string().trim(),
   servings: z.coerce.number().min(1),
   prepTime: z.coerce.number().min(0),
   cookTime: z.coerce.number().min(0),
-  ingredients: z.string(),
-  directions: z.string(),
+  ingredients: z.string().trim(),
+  directions: z.string().trim(),
   public: z.boolean(),
 });
 
