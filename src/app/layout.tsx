@@ -1,7 +1,6 @@
 // import Header from '@/components/header';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
-import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -23,20 +22,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
-      <html
-        className={cn(inter.className, 'h-[100dvh] antialiased [-webkit-tap-highlight-color:transparent]')}
-        lang="en"
-        suppressHydrationWarning
-      >
-        <body>
-          <div className="flex h-[100dvh] w-full flex-col overflow-hidden bg-background pt-[env(safe-area-inset-top)] text-foreground lg:flex-row">
-            <Providers>{children}</Providers>
-          </div>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html
+      className={cn(inter.className, 'h-[100dvh] antialiased [-webkit-tap-highlight-color:transparent]')}
+      lang="en"
+      suppressHydrationWarning
+    >
+      <body>
+        <div className="flex h-[100dvh] w-full flex-col overflow-hidden bg-background pt-[env(safe-area-inset-top)] text-foreground lg:flex-row">
+          <Providers>{children}</Providers>
+        </div>
+      </body>
+    </html>
   );
 }

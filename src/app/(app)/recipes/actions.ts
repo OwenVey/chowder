@@ -1,16 +1,18 @@
 'use server';
 
+import { db } from '@/lib/db';
+import { getSession } from '@/lib/session';
 import type { RecipeCreate, RecipeUpdate } from '@/types';
-import { auth } from '@clerk/nextjs';
 import { revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { db } from '~/prisma/db';
 
-export async function createRecipe(recipe: Omit<RecipeCreate, 'userId'>) {
-  const { userId } = auth();
-  if (!userId) {
+export async function createRecipe(recipe: Omit<RecipeCreate, 'userId' | 'user'>) {
+  const session = await getSession();
+  if (!session) {
     throw new Error('You must be signed in to create a new recipe');
   }
+
+  const userId = session.user.id;
 
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const newRecipe = await db.recipe.create({ data: { ...recipe, userId } });
@@ -19,10 +21,11 @@ export async function createRecipe(recipe: Omit<RecipeCreate, 'userId'>) {
 }
 
 export async function deleteRecipe(id: string) {
-  const { userId } = auth();
-  if (!userId) {
-    throw new Error('You must be signed in to delete a recipe');
+  const session = await getSession();
+  if (!session) {
+    throw new Error('You must be signed in to create a new recipe');
   }
+  const userId = session.user.id;
 
   await db.recipe.delete({ where: { id, userId } });
   revalidateTag(`recipes-${userId}`);
@@ -42,10 +45,11 @@ export async function getRecipe(id: string) {
 }
 
 export async function editRecipe(id: string, recipe: RecipeUpdate) {
-  const { userId } = auth();
-  if (!userId) {
-    throw new Error('You must be signed in to edit a recipe');
+  const session = await getSession();
+  if (!session) {
+    throw new Error('You must be signed in to create a new recipe');
   }
+  const userId = session.user.id;
 
   const updatedRecipe = await db.recipe.update({
     where: { id, userId },

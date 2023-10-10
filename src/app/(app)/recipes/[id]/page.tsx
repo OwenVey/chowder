@@ -7,7 +7,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import numberToFraction from '@/lib/utils';
-import { auth } from '@clerk/nextjs';
+
+import { getUser } from '@/lib/session';
 import { MinusIcon, PenSquareIcon, PlusIcon, TimerIcon, Trash2Icon, UsersIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -28,15 +29,15 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
 }
 
 export default async function RecipePage({ params }: RecipePageProps) {
-  const { userId } = auth();
-
-  if (!userId) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
   const recipe = await getRecipe(params.id);
   if (!recipe) notFound();
-  if (!recipe.public && userId !== recipe.userId) return <div>Recipe is private</div>;
+
+  // if recipe is private we need to verify the user is the creator of it
+  if (!recipe.public) {
+    const user = await getUser();
+    if (!user) return new Response('Unauthorized', { status: 401 });
+    if (user.id !== recipe.userId) return <div>Recipe is private</div>;
+  }
 
   const ingredients = parseIngredient(recipe.ingredients ?? '');
 
