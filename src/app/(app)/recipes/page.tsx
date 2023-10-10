@@ -32,7 +32,7 @@ export default async function RecipesPage() {
       </Header>
 
       <Main className="@container">
-        <div className="grid grid-cols-1 gap-4 @xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 @md:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-4 @7xl:grid-cols-5 @[96rem]:grid-cols-6 @[112rem]:grid-cols-7">
           {recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
