@@ -12,9 +12,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { navigation } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store';
-import { SignOutButton, useUser } from '@clerk/nextjs';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeftToLineIcon, LogOutIcon, SearchIcon, SettingsIcon } from 'lucide-react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -27,7 +28,7 @@ export function DesktopNav() {
   const pathname = usePathname();
   const [isCollapsed, toggleIsCollapsed] = useToggle();
   const setIsGlobalSearchOpen = useStore((state) => state.setIsGlobalSearchOpen);
-  const { user } = useUser();
+  const { data: session } = useSession();
 
   return (
     <motion.aside
@@ -105,13 +106,12 @@ export function DesktopNav() {
       </div>
 
       <div className={cn('mt-auto flex w-full items-center justify-between gap-4 border-t px-4 py-3')}>
-        {/* <UserButton /> */}
-        {user ? (
+        {session?.user ? (
           <DropdownMenu>
             <DropdownMenuTrigger className="flex flex-1 shrink-0 items-center gap-4 overflow-hidden text-left">
               <Image
                 className="h-10 w-10 rounded-full bg-muted"
-                src={user.imageUrl}
+                src={session.user.image ?? ''}
                 alt="User image"
                 width={40}
                 height={40}
@@ -125,10 +125,8 @@ export function DesktopNav() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <div className="truncate text-sm font-semibold text-foreground">{user.fullName}</div>
-                    <div className="truncate text-xs text-muted-foreground">
-                      {user.primaryEmailAddress?.emailAddress}
-                    </div>
+                    <div className="truncate text-sm font-semibold text-foreground">{session.user.name}</div>
+                    <div className="truncate text-xs text-muted-foreground">{session.user.email}</div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -139,9 +137,11 @@ export function DesktopNav() {
                 <SettingsIcon className="mr-2 h-4 w-4" />
                 Manage Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <LogOutIcon className="mr-2 h-4 w-4" />
-                <SignOutButton />
+              <DropdownMenuItem asChild>
+                <button className="w-full" onClick={() => signOut()}>
+                  <LogOutIcon className="mr-2 h-4 w-4" />
+                  Sign Out
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

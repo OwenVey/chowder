@@ -1,7 +1,7 @@
 'use client';
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
-import { useSignIn } from '@clerk/nextjs';
+import { signIn } from 'next-auth/react';
 
 export default function SignInPage() {
   return (
@@ -22,18 +22,8 @@ export default function SignInPage() {
 }
 
 const GoogleButton = () => {
-  const { signIn, isLoaded } = useSignIn();
-  if (!isLoaded) {
-    return <div className="h-9"></div>;
-  }
-  const signInWithGoogle = () =>
-    signIn.authenticateWithRedirect({
-      strategy: 'oauth_google',
-      redirectUrl: '/sso-callback',
-      redirectUrlComplete: '/',
-    });
   return (
-    <Button className="w-full" variant="outline" onClick={signInWithGoogle}>
+    <Button className="w-full" variant="outline" onClick={() => signIn('google', { callbackUrl: '/' })}>
       <svg className="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

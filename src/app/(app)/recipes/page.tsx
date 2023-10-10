@@ -4,7 +4,8 @@ import { AddRecipeModal } from '@/components/add-recipe-modal';
 import Header from '@/components/header';
 import { Main } from '@/components/main';
 import { Button } from '@/components/ui/button';
-import { auth } from '@clerk/nextjs';
+
+import { getUser } from '@/lib/session';
 import { PlusIcon } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -13,13 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RecipesPage() {
-  const { userId } = auth();
+  const user = await getUser();
+  if (!user) return new Response('Unauthorized', { status: 401 });
 
-  if (!userId) {
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  const recipes = await getRecipesByUserId(userId);
+  const recipes = await getRecipesByUserId(user.id);
 
   return (
     <>

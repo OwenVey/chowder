@@ -1,8 +1,8 @@
-import { db } from '~/prisma/db';
+import { db } from '@/lib/db';
 import recipes from './recipes.json';
 
 async function main() {
-  const userId = 'user_2W2dixXTiGeaxKQidbmXlZ7fm4V';
+  const userId = 'clnklzu9t0000mx5x8xiijfya';
 
   recipes.forEach(
     async (recipe) => await db.recipe.upsert({ where: { id: recipe.id }, update: {}, create: { ...recipe, userId } }),
