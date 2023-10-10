@@ -6,7 +6,7 @@ import type { RecipeCreate, RecipeUpdate } from '@/types';
 import { revalidateTag, unstable_cache } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function createRecipe(recipe: Omit<RecipeCreate, 'userId'>) {
+export async function createRecipe(recipe: Omit<RecipeCreate, 'userId' | 'user'>) {
   const session = await getSession();
   if (!session) {
     throw new Error('You must be signed in to create a new recipe');
