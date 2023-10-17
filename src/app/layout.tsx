@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       className={cn(inter.className, 'h-[100dvh] antialiased [-webkit-tap-highlight-color:transparent]')}

@@ -4,7 +4,7 @@ import { DesktopNav } from '@/components/desktop-nav';
 import { GlobalSearch } from '@/components/global-search';
 import MobileNav from '@/components/mobile-nav';
 
-export default async function AppLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SessionProvider>

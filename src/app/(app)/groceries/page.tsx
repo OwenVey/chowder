@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Chowder - Groceries',
 };
 
-export default async function GroceriesPage() {
+export default function GroceriesPage() {
   return (
     <>
       <Header title="Groceries" />

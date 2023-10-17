@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Chowder - Plan',
 };
 
-export default async function PlanPage() {
+export default function PlanPage() {
   return (
     <>
       <Header title="Plan" />

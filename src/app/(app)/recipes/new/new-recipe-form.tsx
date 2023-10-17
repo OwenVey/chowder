@@ -43,9 +43,9 @@ export function NewRecipeForm() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  async function onSubmit(recipe: z.infer<typeof formSchema>) {
+  function onSubmit(recipe: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    createRecipe(recipe);
+    void createRecipe(recipe);
   }
 
   return (
