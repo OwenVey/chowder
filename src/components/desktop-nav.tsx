@@ -71,36 +71,38 @@ export function DesktopNav() {
           <ul role="list" className="space-y-2">
             {navigation
               .filter(({ device }) => device !== 'mobile')
-              .map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'group flex w-full items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
-                      pathname.startsWith(item.href)
-                        ? 'bg-primary text-white'
-                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                    )}
-                  >
-                    <item.icon
+              .map((item) => {
+                const isActive = item.href === '/' ? pathname === item.href : pathname.startsWith(item.href);
+
+                return (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
                       className={cn(
-                        pathname.startsWith(item.href)
-                          ? 'text-white'
-                          : 'text-muted-foreground group-hover:text-foreground',
-                        'h-6 w-6 shrink-0',
+                        'group flex w-full items-center gap-x-3 rounded-md p-2 text-sm font-semibold',
+                        isActive
+                          ? 'bg-primary text-white'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                       )}
-                      aria-hidden="true"
-                    />
-                    <AnimatePresence initial={false}>
-                      {!isCollapsed && (
-                        <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                          {item.name}
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </Link>
-                </li>
-              ))}
+                    >
+                      <item.icon
+                        className={cn(
+                          isActive ? 'text-white' : 'text-muted-foreground group-hover:text-foreground',
+                          'h-6 w-6 shrink-0',
+                        )}
+                        aria-hidden="true"
+                      />
+                      <AnimatePresence initial={false}>
+                        {!isCollapsed && (
+                          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                            {item.name}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </Link>
+                  </li>
+                );
+              })}
           </ul>
         </nav>
       </div>
