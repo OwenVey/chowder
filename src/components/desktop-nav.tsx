@@ -118,6 +118,7 @@ export function DesktopNav() {
                 width={40}
                 height={40}
                 unoptimized
+                referrerPolicy="no-referrer"
               />
               <AnimatePresence initial={false}>
                 {!isCollapsed && (
