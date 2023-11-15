@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "prisma generate && next build",
-    "start": "next start",
-    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:seed": "NODE_ENV=development prisma db seed",
+    "db:studio": "prisma studio",
+    "dev": "next dev",
     "format": "prettier --write --ignore-path .gitignore .",
     "postinstall": "prisma generate",
-    "db-seed": "NODE_ENV=development prisma db seed"
+    "lint": "next lint",
+    "start": "next start"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
