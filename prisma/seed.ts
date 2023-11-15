@@ -4,10 +4,18 @@ import recipes from './recipes.json';
 async function main() {
   const userId = 'clnklzu9t0000mx5x8xiijfya';
 
-  recipes.forEach(
-    async (recipe) => await db.recipe.upsert({ where: { id: recipe.id }, update: {}, create: { ...recipe, userId } }),
+  // Use Promise.all for parallel operations
+  const promises = recipes.map((recipe) =>
+    db.recipe.upsert({
+      where: { id: recipe.id },
+      update: {},
+      create: { ...recipe, userId },
+    }),
   );
+
+  await Promise.all(promises);
 }
+
 main()
   .then(async () => {
     await db.$disconnect();
